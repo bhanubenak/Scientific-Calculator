@@ -2,12 +2,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const display = document.getElementById('calc-display');
     // console.log(display);
     const buttons = document.getElementsByClassName('btn');
-    // const Fx_btn = document.querySelector('button:contains("Fx")');
-    // console.log(Fx_btn)
-    // const basic_btn = document.querySelector('button:contains("123")');
-    // console.log(basic_btn)
-
-    // console.log(buttons)
+    
+    // test
+    var fxButton = document.querySelector('.rounded-end-pill');
+    var basicButton = document.querySelector('.rounded-start-pill');
+    console.log(fxButton)
+    console.log(basicButton)
+    // test
 
     let curr_val = "";
 
@@ -30,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log('button clicked', button.innerHTML);
             const value = button.innerHTML;
 
-            if (value == "AC") {
+            if (value === "AC") {
                 curr_val = "";
                 display.value = curr_val;
 
