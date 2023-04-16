@@ -6,8 +6,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // test
     var fxButton = document.querySelector('.rounded-end-pill');
     var basicButton = document.querySelector('.rounded-start-pill');
-    console.log(fxButton)
-    console.log(basicButton)
+    // console.log(fxButton)
+    // console.log(basicButton)
+
+
+
+
+
+    
     // test
 
     let curr_val = "";
