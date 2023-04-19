@@ -3,16 +3,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // console.log(display);
     const buttons = document.getElementsByClassName('btn');
     
+    basicButton = document.querySelector('.rounded-start-pill');
+    fxButton = document.querySelector('.rounded-end-pill');
     // test
-    var fxButton = document.querySelector('.rounded-end-pill');
-    var basicButton = document.querySelector('.rounded-start-pill');
-    // console.log(fxButton)
-    // console.log(basicButton)
-
-
-
-
-
+    
     
     // test
 
@@ -41,7 +35,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 curr_val = "";
                 display.value = curr_val;
 
-            } else if (value == "=") {
+            } else if (value == "Fx"){
+
+            }
+            
+            else if (value == "=") {
                 evaluateResult()
             } else {
                 curr_val += value;
