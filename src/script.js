@@ -5,6 +5,34 @@ document.addEventListener("DOMContentLoaded", function () {
     
     basicButton = document.querySelector('.rounded-start-pill');
     fxButton = document.querySelector('.rounded-end-pill');
+
+    let shiftMode = false;
+    function toggleShift() {
+        shiftMode = !shiftMode;
+        let shiftButtons = document.querySelectorAll('.shift-buttons');
+        if (shiftMode) {
+            shiftButtons.forEach(button => button.style.display = 'flex');
+        } else {
+            shiftButtons.forEach(button => button.style.display = 'none');
+        }
+    }
+    function buttonClick(val) {
+        let display = document.querySelector('#display');
+        display.value += val;
+    }
+    function clearDisplay() {
+        let display = document.querySelector('#display');
+        display.value = '';
+    }
+    function evaluate() {
+        let display = document.querySelector('#display');
+        try {
+            let result = eval(display.value);
+            display.value = result;
+        } catch (error) {
+            display.value = 'Error';
+        }
+    }
     // test
     
     

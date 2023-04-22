@@ -15,13 +15,25 @@
     <div class="container">
         <h1 class="text-center mt-3">Scientific Calculator</h1>
         <div class="row">
-            <div class="col-12 offset-md-3 col-md-6">
+            <!-- <div class="col-12 col-md-6"> -->
+                <div class="col-12 offset-md-3 col-lg-3">
+
                 <div class="card">
                     <div class="card-body">
-                        <input class="form-control form-control-lg text-end" type="text"
-                            aria-label=".form-control-lg example" readonly id="calc-display">
+                        <input class="form-control text-end" type="text" aria-label=".form-control-lg example" readonly
+                            id="calc-display">
                         <div class="row gx-1">
                             <!-- row - 1 -->
+
+                            <div class="col-3">
+                                <button type="button" class="btn btn-light w-100 mt-2 border">Rad</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-light w-100 mt-2 border">| Deg</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-light w-100 mt-2 border fw-bold">x!</button>
+                            </div>
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-2 border">(</button>
                             </div>
@@ -34,9 +46,11 @@
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-2 border">AC</button>
                             </div>
+                        </div>
 
-                            <!-- row - 2 -->
+                        <!-- row - 2 -->
 
+                        <div class="row gx-1">
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-2 border">7</button>
                             </div>
@@ -49,9 +63,10 @@
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-2 border fw-bold">÷</button>
                             </div>
+                        </div>
 
-                            <!-- row - 3 -->
-
+                        <!-- row - 3 -->
+                        <div class="row gx-1">
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-2 border">4</button>
                             </div>
@@ -64,9 +79,10 @@
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-2 border fw-bold">×</button>
                             </div>
+                        </div>
 
-                            <!-- row - 4 -->
-
+                        <!-- row - 4 -->
+                        <div class="row gx-1">
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-2 border">1</button>
                             </div>
@@ -79,9 +95,10 @@
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-2 border fw-bold">-</button>
                             </div>
+                        </div>
 
-                            <!-- row - 5 -->
-
+                        <!-- row - 5 -->
+                        <div class="row gx-1">
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-2 border">0</button>
                             </div>
@@ -99,13 +116,15 @@
                         <div class="row mt-2 gx-1 ">
                             <div class="col-3 ">
                                 <!-- <button type="button" class="d-block d-sm-none rounded-start-pill fw-semibold btn btn-light w-100 border">123</button> -->
-                                <button type="button" class="d-block d-sm-none rounded-start-pill fw-semibold btn btn-light w-100 border">123</button>
+                                <button type="button"
+                                    class="d-block d-sm-none rounded-start-pill fw-semibold btn btn-light w-100 border">123</button>
                             </div>
                             <div class="col-3">
-                                <button type="button" class="d-block d-sm-none rounded-end-pill fw-semibold btn btn-light w-100 border">Fx</button>
+                                <button type="button"
+                                    class="d-block d-sm-none rounded-end-pill fw-semibold btn btn-light w-100 border">Fx</button>
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
@@ -118,3 +137,43 @@
 </body>
 
 </html>
+
+<!-- 
+
+(
+)
+%
+AC
+7
+8
+9
+÷
+4
+5
+6
+×
+1
+2
+3
+−
+0
+.
+=
++
+Rad
+Deg
+x!
+Inv
+sin
+ln
+π
+cos
+log
+e
+tan
+√
+Ans
+EXP
+xy
+=
+ -->
