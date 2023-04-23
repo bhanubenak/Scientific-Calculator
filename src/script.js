@@ -3,28 +3,91 @@ document.addEventListener("DOMContentLoaded", function () {
     // console.log(display);
     const buttons = document.getElementsByClassName('btn');
 
-    basicButton = document.querySelector('.rounded-start-pill');
-    fxButton = document.querySelector('.rounded-end-pill');
 
-
-    // shift-layout
+    // shift-layout-start
     var fxBtn = document.getElementById("Fx");
     var layout1 = document.getElementById("layout1");
     var layout2 = document.getElementById("layout2");
 
     fxBtn.addEventListener("click", function () {
         layout1.style.display = "none";
-        layout2.style.display = "inline-block";
+        layout2.style.display = "block";
     });
 
     var numBtn = document.getElementById("123");
 
     numBtn.addEventListener("click", function () {
         layout2.style.display = "none";
-        layout1.style.display = "inline-block";
+        layout1.style.display = "block";
+    });
+
+    layout2.style.display = "none";
+    layout1.style.display = "block";
+    // shift-layout-end
+
+    //basic-calculations-will-appear-as-default
+    // Set 123 button as default on page load
+
+
+
+    // 
+    var fxBtn = document.getElementById("Fx");
+    var numBtn = document.getElementById("123");
+
+    // Set 123 button as default on page load
+    numBtn.style.outline = "none";
+    numBtn.style.backgroundColor = "#66a3ff";
+    numBtn.style.color = "#0047b3";
+
+    numBtn.addEventListener("click", function () {
+        layout2.style.display = "none";
+        layout1.style.display = "block";
+        numBtn.style.backgroundColor = "#31a3c7";
+        fxBtn.style.backgroundColor = "";
+        numBtn.style.color = "#0047b3";
+        fxBtn.style.color = "";
+        numBtn.style.border = "2px solid #3385ff";
+        fxBtn.style.outline = "";
+    });
+
+    fxBtn.addEventListener("click", function () {
+        layout1.style.display = "none";
+        layout2.style.display = "block";
+        fxBtn.style.color = "#0047b3";
+        numBtn.style.color = "";
+        fxBtn.style.border = "2px solid #3385ff";
+        numBtn.style.outline = "";
+        fxBtn.style.backgroundColor = "#31a3c7";
+        numBtn.style.backgroundColor = "";
+    });
+    //basic-calculations-will-appear-as-default------
+
+    // Inverse-buttons
+    var invBtn = document.getElementById("Inv");
+    var button = document.querySelectorAll(".d-def");
+
+    // Attach a click event listener to the "Inv" button
+    invBtn.addEventListener("click", function () {
+        // Loop through all the buttons
+        for (var i = 0; i < button.length; i++) {
+            var button = button[i];
+            // If the button has the "default" class, hide it
+            if (button.classList.contains("d-def")) {
+                button.classList.remove("d-def");
+                button.classList.add("d-hid");
+            }
+            // If the button has the "hidden" class, show it
+            else if (button.classList.contains("d-hid")) {
+                button.classList.remove("d-hid");
+                button.classList.add("d-def");
+            }
+        }
     });
 
 
+
+
+    // calculation-operation
     function buttonClick(val) {
         let display = document.querySelector('#display');
         display.value += val;
@@ -42,10 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
             display.value = 'Error';
         }
     }
-    // test
 
-
-    // test
 
     let curr_val = "";
 
