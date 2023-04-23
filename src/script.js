@@ -108,6 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let display = document.querySelector('#display');
         display.value = '';
     }
+
     function evaluate() {
         let display = document.querySelector('#display');
         try {
@@ -115,6 +116,15 @@ document.addEventListener("DOMContentLoaded", function () {
             display.value = result;
         } catch (error) {
             display.value = 'Error';
+        }
+    }
+
+    // factorial
+    function factorial(num) {
+        if (num === 0 || num === 1) {
+            return 1;
+        } else {
+            return num * factorial(num - 1);
         }
     }
 
@@ -126,6 +136,32 @@ document.addEventListener("DOMContentLoaded", function () {
             .replace("×", "*")
             .replace("÷", "/")
             .replace("%", "*0.01")
+            .replace('sin', 'Math.sin')
+            .replace('sin⁻¹', 'Math.asin')
+            .replace('cos', 'Math.cos')
+            .replace('cos⁻¹', 'Math.acos')
+            .replace('π', 'Math.PI')
+            .replace('log', 'Math.log10')
+            .replace('ln', 'Math.log')
+            .replace('e', 'Math.E')
+            .replace('e^', 'Math.exp')
+            .replace('tan', 'Math.tan')
+            .replace('tan⁻¹', 'Math.atan')
+            .replace('√', 'Math.sqrt')
+            .replace('10^', 'Math.pow(10,')
+            .replace('^2', '**2')
+            .replace(/(\d+)!\^(-?1)/g, function (match, num) {
+                return Math.pow(factorial(parseInt(num)), -1);
+            })
+            .replace(/(\d+)!/g, function (match, num) {
+                return factorial(parseInt(num));
+            })
+            .replace(/(\d+\.?\d*)\^(\d+\.?\d*)/g, function (match, num1, num2) {
+                return Math.pow(parseFloat(num1), parseFloat(num2));
+            })
+            .replace(/(\d+)√(\d+)/g, function (match, num1, num2) {
+                return Math.pow(parseFloat(num2), 1 / parseFloat(num1));
+            });
 
         const result = eval(convertedVal);
         curr_val = result.toString();
@@ -134,10 +170,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+
     for (let i = 0; i < buttons.length; i++) {
         const button = buttons[i];
         button.addEventListener('click', function () {
-            console.log('button clicked', button.innerHTML);
+            // console.log('button clicked', button.innerHTML);
             const value = button.innerHTML;
 
             if (value === "AC") {
@@ -145,7 +182,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 display.value = curr_val;
 
             } else if (value == "Fx") {
+                console.log("Fx")
 
+            } else if (value == "123") {
+                console.log("123")
+            }
+            else if (value == "Inv") {
+                console.log("Inv")
             }
 
             else if (value == "=") {
