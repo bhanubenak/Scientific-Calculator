@@ -2,20 +2,29 @@ document.addEventListener("DOMContentLoaded", function () {
     const display = document.getElementById('calc-display');
     // console.log(display);
     const buttons = document.getElementsByClassName('btn');
-    
+
     basicButton = document.querySelector('.rounded-start-pill');
     fxButton = document.querySelector('.rounded-end-pill');
 
-    let shiftMode = false;
-    function toggleShift() {
-        shiftMode = !shiftMode;
-        let shiftButtons = document.querySelectorAll('.shift-buttons');
-        if (shiftMode) {
-            shiftButtons.forEach(button => button.style.display = 'flex');
-        } else {
-            shiftButtons.forEach(button => button.style.display = 'none');
-        }
-    }
+
+    // shift-layout
+    var fxBtn = document.getElementById("Fx");
+    var layout1 = document.getElementById("layout1");
+    var layout2 = document.getElementById("layout2");
+
+    fxBtn.addEventListener("click", function () {
+        layout1.style.display = "none";
+        layout2.style.display = "inline-block";
+    });
+
+    var numBtn = document.getElementById("123");
+
+    numBtn.addEventListener("click", function () {
+        layout2.style.display = "none";
+        layout1.style.display = "inline-block";
+    });
+
+
     function buttonClick(val) {
         let display = document.querySelector('#display');
         display.value += val;
@@ -34,17 +43,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
     // test
-    
-    
+
+
     // test
 
     let curr_val = "";
 
     function evaluateResult() {
         const convertedVal = curr_val
-                .replace("×","*")
-                .replace("÷","/")
-                .replace("%","*0.01")
+            .replace("×", "*")
+            .replace("÷", "/")
+            .replace("%", "*0.01")
 
         const result = eval(convertedVal);
         curr_val = result.toString();
@@ -63,10 +72,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 curr_val = "";
                 display.value = curr_val;
 
-            } else if (value == "Fx"){
+            } else if (value == "Fx") {
 
             }
-            
+
             else if (value == "=") {
                 evaluateResult()
             } else {
