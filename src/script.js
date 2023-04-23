@@ -64,25 +64,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Inverse-buttons
     var invBtn = document.getElementById("Inv");
-    var button = document.querySelectorAll(".d-def");
+    // console.log("invbtn", invBtn);
+    var buttonsHide = document.querySelectorAll(".d-hid");
+    var buttonsDefault = document.querySelectorAll(".d-def");
+    // console.log("button_hide", buttonsHide);
 
-    // Attach a click event listener to the "Inv" button
     invBtn.addEventListener("click", function () {
-        // Loop through all the buttons
-        for (var i = 0; i < button.length; i++) {
-            var button = button[i];
-            // If the button has the "default" class, hide it
+        for (var i = 0; i < buttonsDefault.length; i++) {
+            var button = buttonsDefault[i];
             if (button.classList.contains("d-def")) {
                 button.classList.remove("d-def");
                 button.classList.add("d-hid");
+            } else if (button.classList.contains("d-hid")) {
+                button.classList.remove("d-hid");
+                button.classList.add("d-def");
             }
-            // If the button has the "hidden" class, show it
-            else if (button.classList.contains("d-hid")) {
+        }
+        for (var i = 0; i < buttonsHide.length; i++) {
+            var button = buttonsHide[i];
+            if (button.classList.contains("d-def")) {
+                button.classList.remove("d-def");
+                button.classList.add("d-hid");
+            } else if (button.classList.contains("d-hid")) {
                 button.classList.remove("d-hid");
                 button.classList.add("d-def");
             }
         }
     });
+
+
+
+
 
 
 
