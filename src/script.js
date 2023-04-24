@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Adding-active-class-to-the-radBtn-by-default
     radBtn.classList.add('active');
 
-    // Add event listeners to the buttons
+    // Add-event-listeners-to-the-buttons
     radBtn.addEventListener('click', toggleRadDeg);
     degBtn.addEventListener('click', toggleRadDeg);
 
@@ -211,6 +211,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 case "Inv":
                     console.log("Inv");
                     break;
+                case "Rad":
+                    console.log("Rad");
+                    break;
+                case "deg":
+                    console.log("Deg");
+                    break;
+
+                    
                 case "=":
                     evaluateResult();
                     break;
