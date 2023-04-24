@@ -22,10 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     layout2.style.display = "none";
     layout1.style.display = "block";
-    // shift-layout-end
-
-    //basic-calculations-will-appear-as-default
-    // Set 123 button as default on page load
+   
 
 
 
@@ -218,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log("Deg");
                     break;
 
-                    
+
                 case "=":
                     evaluateResult();
                     break;
