@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
     const display = document.getElementById('calc-display');
-    // console.log(display);
     const buttons = document.getElementsByClassName('btn');
 
 
@@ -92,13 +91,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-
-
-
-
-
-
-
     // calculation-operation
     function buttonClick(val) {
         let display = document.querySelector('#display');
@@ -132,30 +124,38 @@ document.addEventListener("DOMContentLoaded", function () {
     let curr_val = "";
 
     function evaluateResult() {
-        const convertedVal = curr_val
+        const replacedOperators = curr_val
             .replace("×", "*")
             .replace("÷", "/")
-            .replace("%", "*0.01")
-            .replace('sin', 'Math.sin')
-            .replace('sin⁻¹', 'Math.asin')
-            .replace('cos', 'Math.cos')
-            .replace('cos⁻¹', 'Math.acos')
+            .replace("%", "*0.01");
+
+        const replacedFunctions = replacedOperators
+            .replace('sin', 'Math.sin(')
+            .replace('cos', 'Math.cos(')
+            .replace('tan', 'Math.tan(')
+            .replace('sin⁻¹', 'Math.asin(')
+            .replace('cos⁻¹', 'Math.acos(')
+            .replace('tan⁻¹', 'Math.atan(')
             .replace('π', 'Math.PI')
-            .replace('log', 'Math.log10')
-            .replace('ln', 'Math.log')
+            .replace('log', 'Math.log10(')
+            .replace('ln', 'Math.log(')
             .replace('e', 'Math.E')
-            .replace('e^', 'Math.exp')
-            .replace('tan', 'Math.tan')
-            .replace('tan⁻¹', 'Math.atan')
-            .replace('√', 'Math.sqrt')
+            .replace('e^', 'Math.exp(')
+            .replace('√', 'Math.sqrt(')
             .replace('10^', 'Math.pow(10,')
-            .replace('^2', '**2')
+            .replace('^2', '**2');
+
+        const replacedFactorialInverse = replacedFunctions
             .replace(/(\d+)!\^(-?1)/g, function (match, num) {
                 return Math.pow(factorial(parseInt(num)), -1);
-            })
+            });
+
+        const replacedFactorial = replacedFactorialInverse
             .replace(/(\d+)!/g, function (match, num) {
                 return factorial(parseInt(num));
-            })
+            });
+
+        const replacedExponents = replacedFactorial
             .replace(/(\d+\.?\d*)\^(\d+\.?\d*)/g, function (match, num1, num2) {
                 return Math.pow(parseFloat(num1), parseFloat(num2));
             })
@@ -163,40 +163,63 @@ document.addEventListener("DOMContentLoaded", function () {
                 return Math.pow(parseFloat(num2), 1 / parseFloat(num1));
             });
 
+        const convertedVal = replacedExponents + ')'; // Add closing parenthesis
+
         const result = eval(convertedVal);
         curr_val = result.toString();
         display.value = curr_val;
     }
 
+    //   toggle-function-for-Rad-|-Deg-buttons
+    const radBtn = document.querySelector('.rad-btn');
+    const degBtn = document.querySelector('.deg-btn');
+
+    // Adding-active-class-to-the-radBtn-by-default
+    radBtn.classList.add('active');
+
+    // Add event listeners to the buttons
+    radBtn.addEventListener('click', toggleRadDeg);
+    degBtn.addEventListener('click', toggleRadDeg);
+
+    //It-will-toggle-the-button-and-update-the-class
+    function toggleRadDeg(event) {
+        const clickedBtn = event.target;
+        if (!clickedBtn.classList.contains('active')) {
+            radBtn.classList.toggle('active');
+            degBtn.classList.toggle('active');
+        }
+    }
 
 
 
     for (let i = 0; i < buttons.length; i++) {
         const button = buttons[i];
         button.addEventListener('click', function () {
-            // console.log('button clicked', button.innerHTML);
             const value = button.innerHTML;
 
-            if (value === "AC") {
-                curr_val = "";
-                display.value = curr_val;
-
-            } else if (value == "Fx") {
-                console.log("Fx")
-
-            } else if (value == "123") {
-                console.log("123")
+            switch (value) {
+                case "AC":
+                    curr_val = "";
+                    display.value = curr_val;
+                    break;
+                case "Fx":
+                    console.log("Fx");
+                    break;
+                case "123":
+                    console.log("123");
+                    break;
+                case "Inv":
+                    console.log("Inv");
+                    break;
+                case "=":
+                    evaluateResult();
+                    break;
+                default:
+                    curr_val += value;
+                    display.value = curr_val;
+                    break;
             }
-            else if (value == "Inv") {
-                console.log("Inv")
-            }
-
-            else if (value == "=") {
-                evaluateResult()
-            } else {
-                curr_val += value;
-                display.value = curr_val;
-            }
-        })
+        });
     }
+
 })
