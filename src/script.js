@@ -22,15 +22,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     layout2.style.display = "none";
     layout1.style.display = "block";
-   
 
 
+    // var fxBtn = document.getElementById("Fx");
+    // var numBtn = document.getElementById("123");
 
-    // 
-    var fxBtn = document.getElementById("Fx");
-    var numBtn = document.getElementById("123");
-
-    // Set 123 button as default on page load
+    // Set 123-button as default on page load
     numBtn.style.outline = "none";
     numBtn.style.backgroundColor = "#66a3ff";
     numBtn.style.color = "#0047b3";
@@ -58,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     //basic-calculations-will-appear-as-default------
 
-    // Inverse-buttons
+    // --------Inverse-buttons-------------
     var invBtn = document.getElementById("Inv");
     // console.log("invbtn", invBtn);
     var buttonsHide = document.querySelectorAll(".d-hid");
@@ -110,57 +107,67 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // factorial
     function factorial(num) {
-        if (num === 0 || num === 1) {
-            return 1;
-        } else {
-            return num * factorial(num - 1);
-        }
+        if (num < 0) return;
+        if (num === 0) return 1;
+        return num * factorial(num - 1);
     }
 
 
     let curr_val = "";
 
     function evaluateResult() {
+        const operators = {
+            '\u207B': '-',
+            '×': '*',
+            '÷': '/',
+            '%': '*0.01',
+            'π': 'Math.PI',
+        };
+
+        const functions = {
+            'sin': 'Math.sin',
+            'cos': 'Math.cos',
+            'tan': 'Math.tan',
+            'asin': 'Math.asin',
+            'acos': 'Math.acos',
+            'atan': 'Math.atan',
+            'log': 'Math.log10',
+            'ln': 'Math.log',
+            'exp': 'Math.exp',
+            'sqrt': 'Math.sqrt',
+            'pow': 'Math.pow.bind(null, 10)'
+        };
+
         const replacedOperators = curr_val
-            .replace("×", "*")
-            .replace("÷", "/")
-            .replace("%", "*0.01");
-
-        const replacedFunctions = replacedOperators
-            .replace('sin', 'Math.sin(')
-            .replace('cos', 'Math.cos(')
-            .replace('tan', 'Math.tan(')
-            .replace('sin⁻¹', 'Math.asin(')
-            .replace('cos⁻¹', 'Math.acos(')
-            .replace('tan⁻¹', 'Math.atan(')
-            .replace('π', 'Math.PI')
-            .replace('log', 'Math.log10(')
-            .replace('ln', 'Math.log(')
-            .replace('e', 'Math.E')
-            .replace('e^', 'Math.exp(')
-            .replace('√', 'Math.sqrt(')
-            .replace('10^', 'Math.pow(10,')
-            .replace('^2', '**2');
-
-        const replacedFactorialInverse = replacedFunctions
-            .replace(/(\d+)!\^(-?1)/g, function (match, num) {
-                return Math.pow(factorial(parseInt(num)), -1);
+            .replace(/[\u207B]|×|÷|%|sin⁻¹|cos⁻¹|tan⁻¹|π|log|ln|e|e^|√|10\^|\^2/g, function (match) {
+                return operators[match] || functions[match] || match;
             });
 
-        const replacedFactorial = replacedFactorialInverse
-            .replace(/(\d+)!/g, function (match, num) {
-                return factorial(parseInt(num));
+        function factorial(num) {
+            if (num < 0) return;
+            if (num === 0) return 1;
+            let result = 1;
+            for (let i = 1; i <= num; i++) {
+                result *= i;
+            }
+            return result;
+        }
+
+        const replacedFactorial = replacedOperators
+            .replace(/(\d+)!\^(-?1)|(\d+)!|(\d+\.?\d*)\^(\d+\.?\d*)|(\d+)√(\d+)/g, function (match, num1, power, factorial, num2, num3) {
+                if (factorial) {
+                    return factorial(parseInt(factorial));
+                }
+                if (power) {
+                    return Math.pow(parseFloat(num1), parseFloat(power));
+                }
+                if (num3) {
+                    return Math.pow(parseFloat(num2), 1 / parseFloat(num3));
+                }
+                return match;
             });
 
-        const replacedExponents = replacedFactorial
-            .replace(/(\d+\.?\d*)\^(\d+\.?\d*)/g, function (match, num1, num2) {
-                return Math.pow(parseFloat(num1), parseFloat(num2));
-            })
-            .replace(/(\d+)√(\d+)/g, function (match, num1, num2) {
-                return Math.pow(parseFloat(num2), 1 / parseFloat(num1));
-            });
-
-        const convertedVal = replacedExponents + ')'; // Add closing parenthesis
+        const convertedVal = replacedFactorial;
 
         const result = eval(convertedVal);
         curr_val = result.toString();
