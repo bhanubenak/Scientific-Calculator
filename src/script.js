@@ -29,28 +29,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Set 123-button as default on page load
   numBtn.style.outline = "none";
-  numBtn.style.backgroundColor = "#66a3ff";
-  numBtn.style.color = "#0047b3";
+  numBtn.style.backgroundColor = "#0d6efd";
+  numBtn.style.color = "#ffffff ";
 
   numBtn.addEventListener("click", function () {
     layout2.style.display = "none";
     layout1.style.display = "block";
-    numBtn.style.backgroundColor = "#31a3c7";
+    numBtn.style.backgroundColor = "#0d6efd";
     fxBtn.style.backgroundColor = "";
-    numBtn.style.color = "#0047b3";
+    numBtn.style.color = "#ffffff";
     fxBtn.style.color = "";
-    numBtn.style.border = "2px solid #3385ff";
+    numBtn.style.border = "2px solid #0d6efd";
     fxBtn.style.outline = "";
   });
 
   fxBtn.addEventListener("click", function () {
     layout1.style.display = "none";
     layout2.style.display = "block";
-    fxBtn.style.color = "#0047b3";
+    fxBtn.style.color = "#ffffff";
     numBtn.style.color = "";
-    fxBtn.style.border = "2px solid #3385ff";
+    fxBtn.style.border = "2px solid #0d6efd";
     numBtn.style.outline = "";
-    fxBtn.style.backgroundColor = "#31a3c7";
+    fxBtn.style.backgroundColor = "#0d6efd";
     numBtn.style.backgroundColor = "";
   });
   //basic-calculations-will-appear-as-default------
