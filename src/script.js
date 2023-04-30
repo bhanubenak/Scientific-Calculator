@@ -115,6 +115,138 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let curr_val = "";
 
+    //   toggle-function-for-Rad-|-Deg-buttons
+    const radBtn = document.querySelector('.rad-btn');
+    const degBtn = document.querySelector('.deg-btn');
+
+    // Adding-active-class-to-the-radBtn-by-default
+    radBtn.classList.add('active');
+
+    // Add-event-listeners-to-the-buttons
+    radBtn.addEventListener('click', toggleRadDeg);
+    degBtn.addEventListener('click', toggleRadDeg);
+
+    //It-will-toggle-the-button-and-update-the-class
+    function toggleRadDeg(event) {
+        const clickedBtn = event.target;
+        if (!clickedBtn.classList.contains('active')) {
+            radBtn.classList.toggle('active');
+            degBtn.classList.toggle('active');
+        }
+    }
+
+    const operators = {
+        '\u207B': '-',
+        '×': '*',
+        '÷': '/',
+        '%': '*0.01',
+        'π': 'Math.PI',
+      };
+      
+      const functions = {
+        'sin': 'Math.sin',
+        'cos': 'Math.cos',
+        'tan': 'Math.tan',
+        'asin': 'Math.asin',
+        'acos': 'Math.acos',
+        'atan': 'Math.atan',
+        'log': 'Math.log10',
+        'ln': 'Math.log',
+        'exp': 'Math.exp',
+        'sqrt': 'Math.sqrt',
+        'pow': 'Math.pow.bind(null, 10)'
+      };
+      
+      const replacedOperators = curr_val
+        .replace(/[\u207B]|×|÷|%|sin⁻¹|cos⁻¹|tan⁻¹|π|log|ln|e|e^|√|10\^|\^2/g, function (match) {
+          return operators[match] || functions[match] || match;
+        });
+      
+      function factorial(num) {
+        if (num < 0) return;
+        if (num === 0) return 1;
+        let result = 1;
+        for (let i = 1; i <= num; i++) {
+          result *= i;
+        }
+        return result;
+      }
+      
+      const replacedFactorial = replacedOperators
+        .replace(/(\d+)!\^(-?1)|(\d+)!|(\d+\.?\d*)\^(\d+\.?\d*)|(\d+)√(\d+)/g, function (match, num1, power, factorial, num2, num3) {
+          if (factorial) {
+            return factorial(parseInt(factorial));
+          }
+          if (power) {
+            return Math.pow(parseFloat(num1), parseFloat(power));
+          }
+          if (num3) {
+            return Math.pow(parseFloat(num2), 1 / parseFloat(num3));
+          }
+          return match;
+        });
+      
+      const convertedVal = replacedFactorial;
+      
+      function evaluateResult() {
+        const result = eval(convertedVal);
+        curr_val = result.toString();
+        display.value = curr_val;
+      }
+      
+      for (let i = 0; i < buttons.length; i++) {
+        const button = buttons[i];
+        button.addEventListener('click', function () {
+          const value = button.innerHTML;
+      
+          switch (value) {
+            case "AC":
+              curr_val = "";
+              display.value = curr_val;
+              break;
+            case "Fx":
+              console.log("Fx");
+              break;
+            case "123":
+              console.log("123");
+              break;
+            case "Inv":
+              console.log("Inv");
+              break;
+            case "Rad":
+              console.log("Rad");
+              break;
+            case "deg":
+              console.log("Deg");
+              break;
+            case "sin":
+              // Get the angle to calculate the sin of
+              const angle = parseFloat(curr_val);
+      
+              // Convert the angle from degrees to radians
+              const radians = angle * (Math.PI / 180);
+      
+              // Calculate the sin of the angle in radians
+              const result = Math.sin(radians);
+      
+              // Set the current value to the result
+              curr_val = result.toString();
+              display.value = curr_val;
+              break;
+            case "=":
+              evaluateResult();
+              break;
+            default:
+              curr_val += value;
+              display.value = curr_val;
+              break;
+          }
+        });
+      }
+
+
+    /*
+
     function evaluateResult() {
         const operators = {
             '\u207B': '-',
@@ -174,28 +306,6 @@ document.addEventListener("DOMContentLoaded", function () {
         display.value = curr_val;
     }
 
-    //   toggle-function-for-Rad-|-Deg-buttons
-    const radBtn = document.querySelector('.rad-btn');
-    const degBtn = document.querySelector('.deg-btn');
-
-    // Adding-active-class-to-the-radBtn-by-default
-    radBtn.classList.add('active');
-
-    // Add-event-listeners-to-the-buttons
-    radBtn.addEventListener('click', toggleRadDeg);
-    degBtn.addEventListener('click', toggleRadDeg);
-
-    //It-will-toggle-the-button-and-update-the-class
-    function toggleRadDeg(event) {
-        const clickedBtn = event.target;
-        if (!clickedBtn.classList.contains('active')) {
-            radBtn.classList.toggle('active');
-            degBtn.classList.toggle('active');
-        }
-    }
-
-
-
     for (let i = 0; i < buttons.length; i++) {
         const button = buttons[i];
         button.addEventListener('click', function () {
@@ -234,4 +344,5 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    */
 })

@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 
 <html>
 
@@ -17,6 +17,35 @@
         .def {
             display: block;
         }
+
+        @media (min-width: 460px) {
+            .layout-structure {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                flex-wrap: nowrap;
+            }
+
+            .button {
+                flex-basis: calc(100% / 7);
+                /*Change 4 to the number of buttons you have*/
+                text-align: center;
+            }
+
+            .layout-shift {
+                display: none;
+            }
+
+            .col-md-3 {
+                flex-basis: 50%;
+                max-width: 50%;
+            }
+
+            .layout2 {
+                display: block !important;
+                flex-wrap: nowrap;
+            }
+        }
     </style>
 </head>
 
@@ -27,9 +56,108 @@
             <div class="col-12 offset-md-3 col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <input class="form-control form-control-lg text-end" type="text" aria-label=".form-control-lg example" readonly
-                            id="calc-display">
-                        <div class="">
+                        <input class="form-control form-control-lg text-end" type="text"
+                            aria-label=".form-control-lg example" readonly id="calc-display">
+                        <div class="layout-structure">
+
+                            <div class="layout2 col-lg-12 " id="layout2">
+                                <!-- 
+                        Rad   Deg   x!     Inv
+                        
+                        sin   ln    π     cos
+                        sin-1 e(x)        cos-1
+                        
+                        log   e     tan    √
+                                    tan-1   x(2)
+                        Ans   EXP   xy =
+                        Rnd
+                           -->
+                                <div class="row gx-1">
+                                    <div class="col-3">
+                                        <button type="button"
+                                            class="rad-btn btn btn-light w-100 mt-2 border">Rad</button>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button"
+                                            class="deg-btn btn btn-light w-100 mt-2 border">Deg</button>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button" class="btn btn-light w-100 mt-2 border">!</button>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button" id="Inv"
+                                            class="btn btn-light w-100 mt-2 border">Inv</button>
+                                    </div>
+                                </div>
+                                <!-- 2nd row 
+                             sin   ln    π     cos-->
+                                <div class="row gx-1">
+                                    <div class="col-3">
+                                        <button type="button" class="d-def btn btn-light w-100 mt-2 border">sin</button>
+                                        <button type="button"
+                                            class="d-hid btn btn-light w-100 mt-2 border">sin⁻¹</button>
+
+                                        <!--   <button class="hidden">sin<sup>−1</sup></button> -->
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button" class="d-def btn btn-light w-100 mt-2 border"
+                                            name="ln">ln</button>
+                                        <button type="button"
+                                            class="d-hid btn btn-light w-100 mt-2 border">e<sup>x</sup></button>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button" class="btn btn-light w-100 mt-2 border">π</button>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button" class="d-def btn btn-light w-100 mt-2 border">cos</button>
+                                        <button type="button"
+                                            class="d-hid btn btn-light w-100 mt-2 border">cos⁻¹</button>
+                                    </div>
+                                </div>
+                                <!-- 3rd row 
+                             log   e     t     √-->
+                                <div class="row gx-1">
+                                    <div class="col-3">
+                                        <button type="button" class="d-def btn btn-light w-100 mt-2 border">log</button>
+                                        <button type="button"
+                                            class="d-hid btn btn-light w-100 mt-2 border">10<sup>x</sup></button>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button" class="btn btn-light w-100 mt-2 border">e</button>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button" class="d-def btn btn-light w-100 mt-2 border">tan</button>
+                                        <button type="button"
+                                            class="d-hid btn btn-light w-100 mt-2 border">tan⁻¹</button>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button" class="d-def btn btn-light w-100 mt-2 border">√</button>
+                                        <button type="button"
+                                            class="d-hid btn btn-light w-100 mt-2 border">x<sup>2</sup></button>
+                                    </div>
+                                </div>
+                                <!-- 4th row 
+                            Ans   EXP   xy =-->
+                                <div class="row gx-1">
+                                    <div class="col-3">
+                                        <button type="button" class="d-def btn btn-light w-100 mt-2 border">Ans</button>
+                                        <button type="button" class="d-hid btn btn-light w-100 mt-2 border">Rnd</button>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button" class="btn btn-light w-100 mt-2 border">EXP</button>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button"
+                                            class="d-def btn btn-light w-100 mt-2 border ">x<sup>y</sup></button>
+                                        <button type="button"
+                                            class="d-hid btn btn-light w-100 mt-2 border "><sup>y</sup>√x</button>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button"
+                                            class="btn btn-primary w-100 mt-2 border fw-bold">=</button>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="layout1 col-lg-12" id="layout1">
                                 <div class="row gx-1">
                                     <!-- row - 1 -->
@@ -114,108 +242,11 @@
                                 </div>
                             </div>
 
-                            <div class="layout2 col-lg-12 " id="layout2">
-                                <!-- 
-                        Rad   Deg   x!     Inv
-                        
-                        sin   ln    π     cos
-                        sin-1 e(x)        cos-1
-                        
-                        log   e     tan    √
-                                    tan-1   x(2)
-                        Ans   EXP   xy =
-                        Rnd
-                           -->
-                                <div class="row gx-1">
-                                    <div class="col-3" style="padding-right:0px !important">
-                                        <button type="button" style="padding-right:0px !important"
-                                            class="rad-btn btn btn-light w-100 mt-2 border">Rad</button>
-                                    </div>
-                                    <div class="col-3" style="padding-left:0px !important">
-                                        <button type="button" style="padding-left:0px !important"
-                                            class="deg-btn btn btn-light w-100 mt-2 border">Deg</button>
-                                    </div>
-                                    <div class="col-3">
-                                        <button type="button" class="btn btn-light w-100 mt-2 border">!</button>
-                                    </div>
-                                    <div class="col-3">
-                                        <button type="button" id="Inv"
-                                            class="btn btn-light w-100 mt-2 border">Inv</button>
-                                    </div>
-                                </div>
-                                <!-- 2nd row 
-                             sin   ln    π     cos-->
-                                <div class="row gx-1">
-                                    <div class="col-3">
-                                        <button type="button" class="d-def btn btn-light w-100 mt-2 border">sin</button>
-                                        <button type="button"
-                                            class="d-hid btn btn-light w-100 mt-2 border">sin⁻¹</button>
 
-                                        <!--   <button class="hidden">sin<sup>−1</sup></button> -->
-                                    </div>
-                                    <div class="col-3">
-                                        <button type="button" class="d-def btn btn-light w-100 mt-2 border"
-                                            name="ln">ln</button>
-                                        <button type="button"
-                                            class="d-hid btn btn-light w-100 mt-2 border">e<sup>x</sup></button>
-                                    </div>
-                                    <div class="col-3">
-                                        <button type="button" class="btn btn-light w-100 mt-2 border">π</button>
-                                    </div>
-                                    <div class="col-3">
-                                        <button type="button" class="d-def btn btn-light w-100 mt-2 border">cos</button>
-                                        <button type="button"
-                                            class="d-hid btn btn-light w-100 mt-2 border">cos⁻¹</button>
-                                    </div>
-                                </div>
-                                <!-- 3rd row 
-                             log   e     t     √-->
-                                <div class="row gx-1">
-                                    <div class="col-3">
-                                        <button type="button" class="d-def btn btn-light w-100 mt-2 border">log</button>
-                                        <button type="button"
-                                            class="d-hid btn btn-light w-100 mt-2 border">10<sup>x</sup></button>
-                                    </div>
-                                    <div class="col-3">
-                                        <button type="button" class="btn btn-light w-100 mt-2 border">e</button>
-                                    </div>
-                                    <div class="col-3">
-                                        <button type="button" class="d-def btn btn-light w-100 mt-2 border">tan</button>
-                                        <button type="button"
-                                            class="d-hid btn btn-light w-100 mt-2 border">tan⁻¹</button>
-                                    </div>
-                                    <div class="col-3">
-                                        <button type="button" class="d-def btn btn-light w-100 mt-2 border">√</button>
-                                        <button type="button"
-                                            class="d-hid btn btn-light w-100 mt-2 border">x<sup>2</sup></button>
-                                    </div>
-                                </div>
-                                <!-- 4th row 
-                            Ans   EXP   xy =-->
-                                <div class="row gx-1">
-                                    <div class="col-3">
-                                        <button type="button" class="d-def btn btn-light w-100 mt-2 border">Ans</button>
-                                        <button type="button" class="d-hid btn btn-light w-100 mt-2 border">Rnd</button>
-                                    </div>
-                                    <div class="col-3">
-                                        <button type="button" class="btn btn-light w-100 mt-2 border">EXP</button>
-                                    </div>
-                                    <div class="col-3">
-                                        <button type="button"
-                                            class="d-def btn btn-light w-100 mt-2 border ">x<sup>y</sup></button>
-                                        <button type="button"
-                                            class="d-hid btn btn-light w-100 mt-2 border "><sup>y</sup>√x</button>
-                                    </div>
-                                    <div class="col-3">
-                                        <button type="button"
-                                            class="btn btn-primary w-100 mt-2 border fw-bold">=</button>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
 
-                        <div class="row mt-2 gx-1">
+                        <div class="layout-shift row mt-2 gx-1">
                             <div class="col-2 w-5" style="padding:0px !important;">
                                 <button type="button" id="123"
                                     class="d-block d-sm-none rounded-start-pill fw-semibold btn btn-light w-100 border ">123</button>
