@@ -19,31 +19,24 @@
         }
 
         @media (min-width: 460px) {
-            .layout-structure {
+
+            /* .layout-structure {
                 display: flex;
-                justify-content: flex-start;
-                align-items: center;
-                flex-wrap: nowrap;
-            }
-
-            .button {
-                flex-basis: calc(100% / 7);
-                /*Change 4 to the number of buttons you have*/
-                text-align: center;
-            }
-
-            .layout-shift {
+            } */
+            
+            .layout-shift{
                 display: none;
             }
-
-            .col-md-3 {
-                flex-basis: 50%;
-                max-width: 50%;
+            .layout2{
+                display: block !important;
             }
 
-            .layout2 {
-                display: block !important;
+            .layout2,
+            .layout1 {
+                display: flex;
+                flex-direction: row;
                 flex-wrap: nowrap;
+                width: 60% !important;
             }
         }
     </style>
@@ -93,9 +86,10 @@
                              sin   ln    π     cos-->
                                 <div class="row gx-1">
                                     <div class="col-3">
-                                        <button type="button" class="d-def btn btn-light w-100 mt-2 border">sin</button>
                                         <button type="button"
-                                            class="d-hid btn btn-light w-100 mt-2 border">sin⁻¹</button>
+                                            class="d-def btn btn-light w-100 mt-2 border text-nowrap">sin</button>
+                                        <button type="button"
+                                            class="d-hid btn btn-light w-100 mt-2 border text-nowrap">sin⁻¹</button>
 
                                         <!--   <button class="hidden">sin<sup>−1</sup></button> -->
                                     </div>
@@ -152,9 +146,9 @@
                                         <button type="button"
                                             class="d-hid btn btn-light w-100 mt-2 border "><sup>y</sup>√x</button>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-3 d-md-none eql-btn">
                                         <button type="button"
-                                            class="btn btn-primary w-100 mt-2 border fw-bold">=</button>
+                                            class="btn btn-primary w-100 mt-2 border fw-bold ">=</button>
                                     </div>
                                 </div>
                             </div>
