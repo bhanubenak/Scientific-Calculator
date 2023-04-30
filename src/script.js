@@ -1,348 +1,350 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const display = document.getElementById('calc-display');
-    const buttons = document.getElementsByClassName('btn');
+  const display = document.getElementById('calc-display');
+  const buttons = document.getElementsByClassName('btn');
 
 
-    // shift-layout-start
-    var fxBtn = document.getElementById("Fx");
-    var layout1 = document.getElementById("layout1");
-    var layout2 = document.getElementById("layout2");
+  // shift-layout-start
+  var fxBtn = document.getElementById("Fx");
+  var layout1 = document.getElementById("layout1");
+  var layout2 = document.getElementById("layout2");
 
-    fxBtn.addEventListener("click", function () {
-        layout1.style.display = "none";
-        layout2.style.display = "block";
-    });
+  fxBtn.addEventListener("click", function () {
+    layout1.style.display = "none";
+    layout2.style.display = "block";
+  });
 
-    var numBtn = document.getElementById("123");
+  var numBtn = document.getElementById("123");
 
-    numBtn.addEventListener("click", function () {
-        layout2.style.display = "none";
-        layout1.style.display = "block";
-    });
-
+  numBtn.addEventListener("click", function () {
     layout2.style.display = "none";
     layout1.style.display = "block";
+  });
+
+  layout2.style.display = "none";
+  layout1.style.display = "block";
 
 
-    // var fxBtn = document.getElementById("Fx");
-    // var numBtn = document.getElementById("123");
+  // var fxBtn = document.getElementById("Fx");
+  // var numBtn = document.getElementById("123");
 
-    // Set 123-button as default on page load
-    numBtn.style.outline = "none";
-    numBtn.style.backgroundColor = "#66a3ff";
+  // Set 123-button as default on page load
+  numBtn.style.outline = "none";
+  numBtn.style.backgroundColor = "#66a3ff";
+  numBtn.style.color = "#0047b3";
+
+  numBtn.addEventListener("click", function () {
+    layout2.style.display = "none";
+    layout1.style.display = "block";
+    numBtn.style.backgroundColor = "#31a3c7";
+    fxBtn.style.backgroundColor = "";
     numBtn.style.color = "#0047b3";
+    fxBtn.style.color = "";
+    numBtn.style.border = "2px solid #3385ff";
+    fxBtn.style.outline = "";
+  });
 
-    numBtn.addEventListener("click", function () {
-        layout2.style.display = "none";
-        layout1.style.display = "block";
-        numBtn.style.backgroundColor = "#31a3c7";
-        fxBtn.style.backgroundColor = "";
-        numBtn.style.color = "#0047b3";
-        fxBtn.style.color = "";
-        numBtn.style.border = "2px solid #3385ff";
-        fxBtn.style.outline = "";
+  fxBtn.addEventListener("click", function () {
+    layout1.style.display = "none";
+    layout2.style.display = "block";
+    fxBtn.style.color = "#0047b3";
+    numBtn.style.color = "";
+    fxBtn.style.border = "2px solid #3385ff";
+    numBtn.style.outline = "";
+    fxBtn.style.backgroundColor = "#31a3c7";
+    numBtn.style.backgroundColor = "";
+  });
+  //basic-calculations-will-appear-as-default------
+
+  // --------Inverse-buttons-------------
+  var invBtn = document.getElementById("Inv");
+  // console.log("invbtn", invBtn);
+  var buttonsHide = document.querySelectorAll(".d-hid");
+  var buttonsDefault = document.querySelectorAll(".d-def");
+  // console.log("button_hide", buttonsHide);
+
+  invBtn.addEventListener("click", function () {
+    for (var i = 0; i < buttonsDefault.length; i++) {
+      var button = buttonsDefault[i];
+      if (button.classList.contains("d-def")) {
+        button.classList.remove("d-def");
+        button.classList.add("d-hid");
+      } else if (button.classList.contains("d-hid")) {
+        button.classList.remove("d-hid");
+        button.classList.add("d-def");
+      }
+    }
+    for (var i = 0; i < buttonsHide.length; i++) {
+      var button = buttonsHide[i];
+      if (button.classList.contains("d-def")) {
+        button.classList.remove("d-def");
+        button.classList.add("d-hid");
+      } else if (button.classList.contains("d-hid")) {
+        button.classList.remove("d-hid");
+        button.classList.add("d-def");
+      }
+    }
+  });
+
+  // calculation-operation
+  function buttonClick(val) {
+    let display = document.querySelector('#display');
+    display.value += val;
+  }
+  function clearDisplay() {
+    let display = document.querySelector('#display');
+    display.value = '';
+  }
+
+  function evaluate() {
+    let display = document.querySelector('#display');
+    try {
+      let result = eval(display.value);
+      display.value = result;
+    } catch (error) {
+      display.value = 'Error';
+    }
+  }
+
+  // factorial
+  function factorial(num) {
+    if (num < 0) return;
+    if (num === 0) return 1;
+    return num * factorial(num - 1);
+  }
+
+
+  let curr_val = "";
+
+  //   toggle-function-for-Rad-|-Deg-buttons
+  const radBtn = document.querySelector('.rad-btn');
+  const degBtn = document.querySelector('.deg-btn');
+  // Adding-active-class-to-the-radBtn-by-default
+  radBtn.classList.add('active');
+  // Add-event-listeners-to-the-buttons
+  radBtn.addEventListener('click', toggleRadDeg);
+  degBtn.addEventListener('click', toggleRadDeg);
+  //It-will-toggle-the-button-and-update-the-class
+  function toggleRadDeg(event) {
+    const clickedBtn = event.target;
+    if (!clickedBtn.classList.contains('active')) {
+      radBtn.classList.toggle('active');
+      degBtn.classList.toggle('active');
+    }
+  }
+
+  const operators = {
+    '\u207B': '-',
+    '×': '*',
+    '÷': '/',
+    '%': '*0.01',
+    'π': 'Math.PI',
+  };
+
+  const functions = {
+    'sin': 'Math.sin',
+    'cos': 'Math.cos',
+    'tan': 'Math.tan',
+    'asin': 'Math.asin',
+    'acos': 'Math.acos',
+    'atan': 'Math.atan',
+    'log': 'Math.log10',
+    'ln': 'Math.log',
+    'exp': 'Math.exp',
+    'sqrt': 'Math.sqrt',
+    'pow': 'Math.pow.bind(null, 10)'
+  };
+
+  const replacedOperators = curr_val
+    .replace(/[\u207B]|×|÷|%|sin⁻¹|cos⁻¹|tan⁻¹|π|log|ln|e|e^|√|10\^|\^2/g, function (match) {
+      return operators[match] || functions[match] || match;
     });
 
-    fxBtn.addEventListener("click", function () {
-        layout1.style.display = "none";
-        layout2.style.display = "block";
-        fxBtn.style.color = "#0047b3";
-        numBtn.style.color = "";
-        fxBtn.style.border = "2px solid #3385ff";
-        numBtn.style.outline = "";
-        fxBtn.style.backgroundColor = "#31a3c7";
-        numBtn.style.backgroundColor = "";
-    });
-    //basic-calculations-will-appear-as-default------
-
-    // --------Inverse-buttons-------------
-    var invBtn = document.getElementById("Inv");
-    // console.log("invbtn", invBtn);
-    var buttonsHide = document.querySelectorAll(".d-hid");
-    var buttonsDefault = document.querySelectorAll(".d-def");
-    // console.log("button_hide", buttonsHide);
-
-    invBtn.addEventListener("click", function () {
-        for (var i = 0; i < buttonsDefault.length; i++) {
-            var button = buttonsDefault[i];
-            if (button.classList.contains("d-def")) {
-                button.classList.remove("d-def");
-                button.classList.add("d-hid");
-            } else if (button.classList.contains("d-hid")) {
-                button.classList.remove("d-hid");
-                button.classList.add("d-def");
-            }
-        }
-        for (var i = 0; i < buttonsHide.length; i++) {
-            var button = buttonsHide[i];
-            if (button.classList.contains("d-def")) {
-                button.classList.remove("d-def");
-                button.classList.add("d-hid");
-            } else if (button.classList.contains("d-hid")) {
-                button.classList.remove("d-hid");
-                button.classList.add("d-def");
-            }
-        }
+  const replacedFactorial = replacedOperators
+    .replace(/(\d+)!\^(-?1)|(\d+)!|(\d+\.?\d*)\^(\d+\.?\d*)|(\d+)√(\d+)/g, function (match, num1, power, factorial, num2, num3) {
+      if (factorial) {
+        return factorial(parseInt(factorial));
+      }
+      if (power) {
+        return Math.pow(parseFloat(num1), parseFloat(power));
+      }
+      if (num3) {
+        return Math.pow(parseFloat(num2), 1 / parseFloat(num3));
+      }
+      return match;
     });
 
-    // calculation-operation
-    function buttonClick(val) {
-        let display = document.querySelector('#display');
-        display.value += val;
-    }
-    function clearDisplay() {
-        let display = document.querySelector('#display');
-        display.value = '';
-    }
+  const convertedVal = replacedFactorial;
 
-    function evaluate() {
-        let display = document.querySelector('#display');
-        try {
-            let result = eval(display.value);
-            display.value = result;
-        } catch (error) {
-            display.value = 'Error';
-        }
-    }
+  function evaluateResult() {
+    console.log('currentValue:', curr_val)
+    const convertedValue = curr_val
+      .replace("×", "*")
+      .replace("÷", "/")
+      .replace('%', '*0.01')
+      .replace('sin', 'Math.sin')
+      .replace('cos', 'Math.cos')
+      .replace('ln', 'Math.log')
+      .replace('π', 'Math.PI')
+      .replace('log', 'Math.log10')
+      .replace('e', 'Math.E')
+      .replace('tan', 'Math.tan')
+      .replace('√', 'Math.sqrt');
 
-    // factorial
-    function factorial(num) {
-        if (num < 0) return;
-        if (num === 0) return 1;
-        return num * factorial(num - 1);
-    }
+    console.log('convertedValue:', convertedValue)
+    const result = eval(convertedValue);
+    curr_val = result.toString();
+    display.value = curr_val;
+  }
+
+  for (let i = 0; i < buttons.length; i++) {
+    const button = buttons[i];
+    button.addEventListener('click', function () {
+      const value = button.innerHTML;
+
+      switch (value) {
+        case "AC":
+          curr_val = "";
+          display.value = curr_val;
+          break;
+        case "Fx":
+          console.log("Fx");
+          break;
+        case "123":
+          console.log("123");
+          break;
+        case "Inv":
+          console.log("Inv");
+          break;
+        case "Rad":
+          console.log("Rad");
+          break;
+        case "deg":
+          console.log("Deg");
+          break;
+        case "sin":
+          // Get the angle to calculate the sin of
+          const angle = parseFloat(curr_val);
+
+          // Convert the angle from degrees to radians
+          const radians = angle * (Math.PI / 180);
+
+          // Calculate the sin of the angle in radians
+          const result = Math.sin(radians);
+
+          // Set the current value to the result
+          curr_val = result.toString();
+          display.value = curr_val;
+          break;
+        case "=":
+          evaluateResult();
+          break;
+        default:
+          curr_val += value;
+          display.value = curr_val;
+          break;
+      }
+    });
+  }
 
 
-    let curr_val = "";
+  /*
 
-    //   toggle-function-for-Rad-|-Deg-buttons
-    const radBtn = document.querySelector('.rad-btn');
-    const degBtn = document.querySelector('.deg-btn');
-
-    // Adding-active-class-to-the-radBtn-by-default
-    radBtn.classList.add('active');
-
-    // Add-event-listeners-to-the-buttons
-    radBtn.addEventListener('click', toggleRadDeg);
-    degBtn.addEventListener('click', toggleRadDeg);
-
-    //It-will-toggle-the-button-and-update-the-class
-    function toggleRadDeg(event) {
-        const clickedBtn = event.target;
-        if (!clickedBtn.classList.contains('active')) {
-            radBtn.classList.toggle('active');
-            degBtn.classList.toggle('active');
-        }
-    }
-
-    const operators = {
-        '\u207B': '-',
-        '×': '*',
-        '÷': '/',
-        '%': '*0.01',
-        'π': 'Math.PI',
+  function evaluateResult() {
+      const operators = {
+          '\u207B': '-',
+          '×': '*',
+          '÷': '/',
+          '%': '*0.01',
+          'π': 'Math.PI',
       };
-      
+
       const functions = {
-        'sin': 'Math.sin',
-        'cos': 'Math.cos',
-        'tan': 'Math.tan',
-        'asin': 'Math.asin',
-        'acos': 'Math.acos',
-        'atan': 'Math.atan',
-        'log': 'Math.log10',
-        'ln': 'Math.log',
-        'exp': 'Math.exp',
-        'sqrt': 'Math.sqrt',
-        'pow': 'Math.pow.bind(null, 10)'
+          'sin': 'Math.sin',
+          'cos': 'Math.cos',
+          'tan': 'Math.tan',
+          'asin': 'Math.asin',
+          'acos': 'Math.acos',
+          'atan': 'Math.atan',
+          'log': 'Math.log10',
+          'ln': 'Math.log',
+          'exp': 'Math.exp',
+          'sqrt': 'Math.sqrt',
+          'pow': 'Math.pow.bind(null, 10)'
       };
-      
+
       const replacedOperators = curr_val
-        .replace(/[\u207B]|×|÷|%|sin⁻¹|cos⁻¹|tan⁻¹|π|log|ln|e|e^|√|10\^|\^2/g, function (match) {
-          return operators[match] || functions[match] || match;
-        });
-      
+          .replace(/[\u207B]|×|÷|%|sin⁻¹|cos⁻¹|tan⁻¹|π|log|ln|e|e^|√|10\^|\^2/g, function (match) {
+              return operators[match] || functions[match] || match;
+          });
+
       function factorial(num) {
-        if (num < 0) return;
-        if (num === 0) return 1;
-        let result = 1;
-        for (let i = 1; i <= num; i++) {
-          result *= i;
-        }
-        return result;
+          if (num < 0) return;
+          if (num === 0) return 1;
+          let result = 1;
+          for (let i = 1; i <= num; i++) {
+              result *= i;
+          }
+          return result;
       }
-      
+
       const replacedFactorial = replacedOperators
-        .replace(/(\d+)!\^(-?1)|(\d+)!|(\d+\.?\d*)\^(\d+\.?\d*)|(\d+)√(\d+)/g, function (match, num1, power, factorial, num2, num3) {
-          if (factorial) {
-            return factorial(parseInt(factorial));
-          }
-          if (power) {
-            return Math.pow(parseFloat(num1), parseFloat(power));
-          }
-          if (num3) {
-            return Math.pow(parseFloat(num2), 1 / parseFloat(num3));
-          }
-          return match;
-        });
-      
+          .replace(/(\d+)!\^(-?1)|(\d+)!|(\d+\.?\d*)\^(\d+\.?\d*)|(\d+)√(\d+)/g, function (match, num1, power, factorial, num2, num3) {
+              if (factorial) {
+                  return factorial(parseInt(factorial));
+              }
+              if (power) {
+                  return Math.pow(parseFloat(num1), parseFloat(power));
+              }
+              if (num3) {
+                  return Math.pow(parseFloat(num2), 1 / parseFloat(num3));
+              }
+              return match;
+          });
+
       const convertedVal = replacedFactorial;
-      
-      function evaluateResult() {
-        const result = eval(convertedVal);
-        curr_val = result.toString();
-        display.value = curr_val;
-      }
-      
-      for (let i = 0; i < buttons.length; i++) {
-        const button = buttons[i];
-        button.addEventListener('click', function () {
+
+      const result = eval(convertedVal);
+      curr_val = result.toString();
+      display.value = curr_val;
+  }
+
+  for (let i = 0; i < buttons.length; i++) {
+      const button = buttons[i];
+      button.addEventListener('click', function () {
           const value = button.innerHTML;
-      
+
           switch (value) {
-            case "AC":
-              curr_val = "";
-              display.value = curr_val;
-              break;
-            case "Fx":
-              console.log("Fx");
-              break;
-            case "123":
-              console.log("123");
-              break;
-            case "Inv":
-              console.log("Inv");
-              break;
-            case "Rad":
-              console.log("Rad");
-              break;
-            case "deg":
-              console.log("Deg");
-              break;
-            case "sin":
-              // Get the angle to calculate the sin of
-              const angle = parseFloat(curr_val);
-      
-              // Convert the angle from degrees to radians
-              const radians = angle * (Math.PI / 180);
-      
-              // Calculate the sin of the angle in radians
-              const result = Math.sin(radians);
-      
-              // Set the current value to the result
-              curr_val = result.toString();
-              display.value = curr_val;
-              break;
-            case "=":
-              evaluateResult();
-              break;
-            default:
-              curr_val += value;
-              display.value = curr_val;
-              break;
+              case "AC":
+                  curr_val = "";
+                  display.value = curr_val;
+                  break;
+              case "Fx":
+                  console.log("Fx");
+                  break;
+              case "123":
+                  console.log("123");
+                  break;
+              case "Inv":
+                  console.log("Inv");
+                  break;
+              case "Rad":
+                  console.log("Rad");
+                  break;
+              case "deg":
+                  console.log("Deg");
+                  break;
+
+
+              case "=":
+                  evaluateResult();
+                  break;
+              default:
+                  curr_val += value;
+                  display.value = curr_val;
+                  break;
           }
-        });
-      }
+      });
+  }
 
-
-    /*
-
-    function evaluateResult() {
-        const operators = {
-            '\u207B': '-',
-            '×': '*',
-            '÷': '/',
-            '%': '*0.01',
-            'π': 'Math.PI',
-        };
-
-        const functions = {
-            'sin': 'Math.sin',
-            'cos': 'Math.cos',
-            'tan': 'Math.tan',
-            'asin': 'Math.asin',
-            'acos': 'Math.acos',
-            'atan': 'Math.atan',
-            'log': 'Math.log10',
-            'ln': 'Math.log',
-            'exp': 'Math.exp',
-            'sqrt': 'Math.sqrt',
-            'pow': 'Math.pow.bind(null, 10)'
-        };
-
-        const replacedOperators = curr_val
-            .replace(/[\u207B]|×|÷|%|sin⁻¹|cos⁻¹|tan⁻¹|π|log|ln|e|e^|√|10\^|\^2/g, function (match) {
-                return operators[match] || functions[match] || match;
-            });
-
-        function factorial(num) {
-            if (num < 0) return;
-            if (num === 0) return 1;
-            let result = 1;
-            for (let i = 1; i <= num; i++) {
-                result *= i;
-            }
-            return result;
-        }
-
-        const replacedFactorial = replacedOperators
-            .replace(/(\d+)!\^(-?1)|(\d+)!|(\d+\.?\d*)\^(\d+\.?\d*)|(\d+)√(\d+)/g, function (match, num1, power, factorial, num2, num3) {
-                if (factorial) {
-                    return factorial(parseInt(factorial));
-                }
-                if (power) {
-                    return Math.pow(parseFloat(num1), parseFloat(power));
-                }
-                if (num3) {
-                    return Math.pow(parseFloat(num2), 1 / parseFloat(num3));
-                }
-                return match;
-            });
-
-        const convertedVal = replacedFactorial;
-
-        const result = eval(convertedVal);
-        curr_val = result.toString();
-        display.value = curr_val;
-    }
-
-    for (let i = 0; i < buttons.length; i++) {
-        const button = buttons[i];
-        button.addEventListener('click', function () {
-            const value = button.innerHTML;
-
-            switch (value) {
-                case "AC":
-                    curr_val = "";
-                    display.value = curr_val;
-                    break;
-                case "Fx":
-                    console.log("Fx");
-                    break;
-                case "123":
-                    console.log("123");
-                    break;
-                case "Inv":
-                    console.log("Inv");
-                    break;
-                case "Rad":
-                    console.log("Rad");
-                    break;
-                case "deg":
-                    console.log("Deg");
-                    break;
-
-
-                case "=":
-                    evaluateResult();
-                    break;
-                default:
-                    curr_val += value;
-                    display.value = curr_val;
-                    break;
-            }
-        });
-    }
-
-    */
+  */
 })
