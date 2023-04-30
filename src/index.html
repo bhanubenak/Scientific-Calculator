@@ -18,27 +18,49 @@
             display: block;
         }
 
+
+        /* Set default display */
+        .layout-structure > div {
+            display: block;
+        }
+
         @media (min-width: 460px) {
 
-            /* .layout-structure {
+            /* Change display to flex on screens wider than 460px */
+            .layout-structure {
                 display: flex;
-            } */
-            
-            .layout-shift{
-                display: none;
-            }
-            .layout2{
-                display: block !important;
             }
 
-            .layout2,
-            .layout1 {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: nowrap;
-                width: 60% !important;
+            .layout-structure>div {
+                flex: 1;
             }
         }
+        
+
+
+        /* @media (min-width: 460px) {
+            .layout-structure {
+                display: flex;
+            }
+
+        .layout-shift {
+            display: none;
+        }
+
+        .layout2 {
+            display: block !important;
+        }
+
+        .layout2,
+        .layout1 {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            width: 60% !important;
+        }
+        }
+
+        */
     </style>
 </head>
 
@@ -46,7 +68,7 @@
     <div class="container">
         <h1 class="text-center mt-3">Scientific Calculator</h1>
         <div class="row">
-            <div class="col-12 offset-md-3 col-md-6">
+            <div class="col-12 col-lg-7 col-xl-7">
                 <div class="card">
                     <div class="card-body">
                         <input class="form-control form-control-lg text-end" type="text"
