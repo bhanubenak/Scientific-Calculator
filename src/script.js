@@ -105,14 +105,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // factorial
-  function factorial(num) {
-    if (num < 0) return;
-    if (num === 0) return 1;
-    return num * factorial(num - 1);
-  }
-
-
   let curr_val = "";
 
   //   toggle-function-for-Rad-|-Deg-buttons
@@ -132,56 +124,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  const operators = {
-    '\u207B': '-',
-    '×': '*',
-    '÷': '/',
-    '%': '*0.01',
-    'π': 'Math.PI',
-  };
-
-  const functions = {
-    'sin': 'Math.sin',
-    'cos': 'Math.cos',
-    'tan': 'Math.tan',
-    'asin': 'Math.asin',
-    'acos': 'Math.acos',
-    'atan': 'Math.atan',
-    'log': 'Math.log10',
-    'ln': 'Math.log',
-    'exp': 'Math.exp',
-    'sqrt': 'Math.sqrt',
-    'pow': 'Math.pow.bind(null, 10)'
-  };
-
-  const replacedOperators = curr_val
-    .replace(/[\u207B]|×|÷|%|sin⁻¹|cos⁻¹|tan⁻¹|π|log|ln|e|e^|√|10\^|\^2/g, function (match) {
-      return operators[match] || functions[match] || match;
-    });
-
-  const replacedFactorial = replacedOperators
-    .replace(/(\d+)!\^(-?1)|(\d+)!|(\d+\.?\d*)\^(\d+\.?\d*)|(\d+)√(\d+)/g, function (match, num1, power, factorial, num2, num3) {
-      if (factorial) {
-        return factorial(parseInt(factorial));
-      }
-      if (power) {
-        return Math.pow(parseFloat(num1), parseFloat(power));
-      }
-      if (num3) {
-        return Math.pow(parseFloat(num2), 1 / parseFloat(num3));
-      }
-      return match;
-    });
-
-  const convertedVal = replacedFactorial;
-
   function evaluateResult() {
     console.log('currentValue:', curr_val)
 
     function convertValues(curr_val) {
       curr_val = curr_val.replace(/π/g, '*Math.PI');
       curr_val = curr_val.replace(/e/gi, '*Math.E');
-      curr_val = curr_val.replace(/\u221A([\d\.]+)/gi, 'Math.sqrt($1)'); // Added this line
+      curr_val = curr_val.replace(/\u221A([\d\.]+)/gi, 'Math.sqrt($1)');
       curr_val = curr_val.replace(/arcsin/gi, 'Math.asin');
       curr_val = curr_val.replace(/arccos/gi, 'Math.acos');
       curr_val = curr_val.replace(/arctan/gi, 'Math.atan');
@@ -206,7 +155,16 @@ document.addEventListener("DOMContentLoaded", function () {
       curr_val = curr_val.replace(/(\))(\d+)/g, '$1*$2');
       curr_val = curr_val.replace(/\u00D7/g, '*');
       curr_val = curr_val.replace(/\u00F7/g, '/');
+      curr_val = curr_val.replace(/(\d+)!/g, 'factorial($1)');
       return curr_val;
+    }
+
+    function factorial(num) {
+      let res = 1;
+      for (let i = 2; i <= num; i++) {
+        res *= i;
+      }
+      return res;
     }
 
     const convertedValue = convertValues(curr_val);
@@ -247,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
         case "Rad":
           console.log("Rad");
           break;
-        case "deg":
+        case "Deg":
           console.log("Deg");
           break;
         case "sin":

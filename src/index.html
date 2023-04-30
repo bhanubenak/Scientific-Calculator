@@ -27,6 +27,10 @@
 
 
         @media (min-width: 460px) {
+            .container {
+                display: block !important;
+            }
+
             .eql-btn {
                 display: none !important;
             }
@@ -53,9 +57,15 @@
             }
         }
 
+        @media (min-width: 768px) {
+            .container {
+                display: block !important;
+            }
+        }
+
         @media (min-width: 992px) {
             .card {
-                width: 67%;
+                width: 80%;
             }
 
             .card-body {
@@ -63,16 +73,22 @@
             }
         }
 
-        @media screen and (min-width: 1024px) {
+        @media screen and (min-width: 1200px) {
             .card {
-                width: 80%;
+                width: 67%;
+            }
+        }
+
+        @media screen and (min-width: 1400px) {
+            .card {
+                width: 58%;
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="container ">
+    <div class="container d-flex flex-column align-items-center">
         <h1 class="text-center mt-3">Scientific Calculator</h1>
         <div class="row">
             <!-- col-12 col-md-6 col-lg-4 -->
