@@ -24,6 +24,8 @@
             display: block;
         }
 
+
+
         @media (min-width: 460px) {
             .eql-btn {
                 display: none !important;
@@ -51,17 +53,27 @@
             }
         }
 
+        @media (min-width: 992px) {
+            .card {
+                width: 80%;
+            }
+
+            .card-body {
+                width: 750px;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <div class="container">
+    <div class="container ">
         <h1 class="text-center mt-3">Scientific Calculator</h1>
-        <div class="row justify-content-center">
+        <div class="row">
             <!-- col-12 col-md-6 col-lg-4 -->
-            <div class="col-12  w-100 col-md-6 col-lg-4">
-                <div class="card">
-                    <div class="card-body ">
+            <div class="col-12  w-100 ">
+                <!-- <div class="card d-flex align-items-center justify-content-center"> -->
+                <div class="card d-flex">
+                    <div class="card-body" style="">
                         <input class="form-control form-control-lg text-end" type="text"
                             aria-label=".form-control-lg example" readonly id="calc-display">
                         <div class="layout-structure ">
@@ -78,10 +90,11 @@
                         Ans   EXP   xy =
                         Rnd
                            -->
-                                <div class="row gx-1 offset-lg-3">
+                                <div class="row gx-1">
                                     <div class="col-3">
-                                        <button type="button" class="rad-btn btn btn-light w-100 mt-2 border active text-truncate">Rad</button>
-                                      </div>
+                                        <button type="button"
+                                            class="rad-btn btn btn-light w-100 mt-2 border active text-truncate">Rad</button>
+                                    </div>
                                     <div class="col-3">
                                         <button type="button"
                                             class="deg-btn btn btn-light w-100 mt-2 border">Deg</button>
@@ -124,7 +137,8 @@
                              log   e     t     √-->
                                 <div class="row gx-1">
                                     <div class="col-3">
-                                        <button type="button" class="d-def btn btn-light   w-100 mt-2 border">log</button>
+                                        <button type="button"
+                                            class="d-def btn btn-light   w-100 mt-2 border">log</button>
                                         <button type="button"
                                             class="d-hid btn btn-light w-100 mt-2 border">10<sup>x</sup></button>
                                     </div>
@@ -132,7 +146,8 @@
                                         <button type="button" class="btn btn-light w-100 mt-2 border">e</button>
                                     </div>
                                     <div class="col-3">
-                                        <button type="button" class="d-def btn btn-light   w-100 mt-2 border">tan</button>
+                                        <button type="button"
+                                            class="d-def btn btn-light   w-100 mt-2 border">tan</button>
                                         <button type="button"
                                             class="d-hid btn btn-light w-100 mt-2 border">tan⁻¹</button>
                                     </div>
@@ -146,8 +161,10 @@
                             Ans   EXP   xy =-->
                                 <div class="row gx-1">
                                     <div class="col-3">
-                                        <button type="button" class="d-def btn btn-light   w-100 mt-2 border">Ans</button>
-                                        <button type="button" class="d-hid btn btn-light   w-100 mt-2 border">Rnd</button>
+                                        <button type="button"
+                                            class="d-def btn btn-light   w-100 mt-2 border">Ans</button>
+                                        <button type="button"
+                                            class="d-hid btn btn-light   w-100 mt-2 border">Rnd</button>
                                     </div>
                                     <div class="col-3">
                                         <button type="button" class="btn btn-light w-100 mt-2 border">EXP</button>
@@ -164,10 +181,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="layout1 col-lg-12" id="layout1">
+                            <div class="layout1" id="layout1">
                                 <div class="row gx-1">
                                     <!-- row - 1 -->
-                                    <div class="col-3">
+                                    <div class="col-3 d-flex justify-content-center">
                                         <button type="button" class="btn btn-light w-100 mt-2 border">(</button>
                                     </div>
                                     <div class="col-3">

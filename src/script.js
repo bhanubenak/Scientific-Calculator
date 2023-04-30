@@ -177,24 +177,53 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function evaluateResult() {
     console.log('currentValue:', curr_val)
-    const convertedValue = curr_val
-      .replace("×", "*")
-      .replace("÷", "/")
-      .replace('%', '*0.01')
-      .replace('sin', 'Math.sin')
-      .replace('cos', 'Math.cos')
-      .replace('ln', 'Math.log')
-      .replace('π', 'Math.PI')
-      .replace('log', 'Math.log10')
-      .replace('e', 'Math.E')
-      .replace('tan', 'Math.tan')
-      .replace('√', 'Math.sqrt');
 
-    console.log('convertedValue:', convertedValue)
-    const result = eval(convertedValue);
+    function convertValues(curr_val) {
+      curr_val = curr_val.replace(/π/g, '*Math.PI');
+      curr_val = curr_val.replace(/e/gi, '*Math.E');
+      curr_val = curr_val.replace(/\u221A([\d\.]+)/gi, 'Math.sqrt($1)'); // Added this line
+      curr_val = curr_val.replace(/arcsin/gi, 'Math.asin');
+      curr_val = curr_val.replace(/arccos/gi, 'Math.acos');
+      curr_val = curr_val.replace(/arctan/gi, 'Math.atan');
+      curr_val = curr_val.replace(/sin/gi, 'Math.sin');
+      curr_val = curr_val.replace(/cos/gi, 'Math.cos');
+      curr_val = curr_val.replace(/tan/gi, 'Math.tan');
+      curr_val = curr_val.replace(/log/gi, 'Math.log10');
+      curr_val = curr_val.replace(/ln/gi, 'Math.log');
+      curr_val = curr_val.replace(/(\d+)d/gi, '($1*Math.PI/180)');
+      curr_val = curr_val.replace(/(\d+\.\d+)?π(\d+\.\d+)?/gi, function (match, p1, p2) {
+        const num1 = p1 ? parseFloat(p1) : 1;
+        const num2 = p2 ? parseFloat(p2) : 1;
+        return num1 * Math.PI * num2;
+      });
+      curr_val = curr_val.replace(/(\d+\.\d+)?√(\d+\.\d+)?/gi, function (match, p1, p2) {
+        const num = p1 || p2;
+        return 'Math.sqrt(' + num + ')';
+      });
+      curr_val = curr_val.replace(/\%/g, '/100');
+      curr_val = curr_val.replace(/(\d+)\s?\/\s?(\d+)/g, '($1/$2)');
+      curr_val = curr_val.replace(/(\d+)(\()/g, '$1*$2');
+      curr_val = curr_val.replace(/(\))(\d+)/g, '$1*$2');
+      curr_val = curr_val.replace(/\u00D7/g, '*');
+      curr_val = curr_val.replace(/\u00F7/g, '/');
+      return curr_val;
+    }
+
+    const convertedValue = convertValues(curr_val);
+    console.log('convertedValue:', convertedValue);
+    let result;
+    try {
+      result = eval(convertedValue);
+    } catch (error) {
+      console.log('Error:', error);
+      curr_val = 'Error';
+      display.value = curr_val;
+      return;
+    }
     curr_val = result.toString();
     display.value = curr_val;
   }
+
 
   for (let i = 0; i < buttons.length; i++) {
     const button = buttons[i];
