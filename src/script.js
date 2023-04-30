@@ -132,6 +132,8 @@ document.addEventListener("DOMContentLoaded", function () {
       curr_val = curr_val.replace(/π/g, '*Math.PI');
       curr_val = curr_val.replace(/e/gi, '*Math.E');
       curr_val = curr_val.replace(/\u221A([\d\.]+)/gi, 'Math.sqrt($1)');
+      curr_val = curr_val.replace(/\^/g, "**");
+      curr_val = curr_val.replace(/(\d)x\^2/g, '$1*Math.pow(x,2)');
     
       // Convert degrees to radians
       if (degBtn.classList.contains('active')) {
@@ -169,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
       curr_val = curr_val.replace(/\u00D7/g, '*');
       curr_val = curr_val.replace(/\u00F7/g, '/');
       curr_val = curr_val.replace(/(\d+)!/g, 'factorial($1)');
-      
+    
       // Replace inverse trigonometric function symbols with valid syntax
       curr_val = curr_val.replace(/([a-z]+)⁻¹\(([^)]+)\)/gi, function (match, p1, p2) {
         const func = 'Math.' + p1 + '(' + p2 + ')';
