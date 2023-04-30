@@ -127,16 +127,29 @@ document.addEventListener("DOMContentLoaded", function () {
   function evaluateResult() {
     console.log('currentValue:', curr_val)
 
+
     function convertValues(curr_val) {
       curr_val = curr_val.replace(/π/g, '*Math.PI');
       curr_val = curr_val.replace(/e/gi, '*Math.E');
       curr_val = curr_val.replace(/\u221A([\d\.]+)/gi, 'Math.sqrt($1)');
-      curr_val = curr_val.replace(/arcsin/gi, 'Math.asin');
-      curr_val = curr_val.replace(/arccos/gi, 'Math.acos');
-      curr_val = curr_val.replace(/arctan/gi, 'Math.atan');
-      curr_val = curr_val.replace(/sin/gi, 'Math.sin');
-      curr_val = curr_val.replace(/cos/gi, 'Math.cos');
-      curr_val = curr_val.replace(/tan/gi, 'Math.tan');
+    
+      // Convert degrees to radians
+      if (degBtn.classList.contains('active')) {
+        curr_val = curr_val.replace(/asin/gi, 'Math.asin');
+        curr_val = curr_val.replace(/acos/gi, 'Math.acos');
+        curr_val = curr_val.replace(/atan/gi, 'Math.atan');
+        curr_val = curr_val.replace(/sin\(([^)]+)\)/gi, 'Math.sin($1/180*Math.PI)');
+        curr_val = curr_val.replace(/cos\(([^)]+)\)/gi, 'Math.cos($1/180*Math.PI)');
+        curr_val = curr_val.replace(/tan\(([^)]+)\)/gi, 'Math.tan($1/180*Math.PI)');
+      } else {
+        curr_val = curr_val.replace(/asin/gi, 'Math.asin');
+        curr_val = curr_val.replace(/acos/gi, 'Math.acos');
+        curr_val = curr_val.replace(/atan/gi, 'Math.atan');
+        curr_val = curr_val.replace(/sin/gi, 'Math.sin');
+        curr_val = curr_val.replace(/cos/gi, 'Math.cos');
+        curr_val = curr_val.replace(/tan/gi, 'Math.tan');
+      }
+      
       curr_val = curr_val.replace(/log/gi, 'Math.log10');
       curr_val = curr_val.replace(/ln/gi, 'Math.log');
       curr_val = curr_val.replace(/(\d+)d/gi, '($1*Math.PI/180)');
@@ -156,6 +169,14 @@ document.addEventListener("DOMContentLoaded", function () {
       curr_val = curr_val.replace(/\u00D7/g, '*');
       curr_val = curr_val.replace(/\u00F7/g, '/');
       curr_val = curr_val.replace(/(\d+)!/g, 'factorial($1)');
+      
+      // Replace inverse trigonometric function symbols with valid syntax
+      curr_val = curr_val.replace(/([a-z]+)⁻¹\(([^)]+)\)/gi, function (match, p1, p2) {
+        const func = 'Math.' + p1 + '(' + p2 + ')';
+        return 'Math.PI/2 - Math.asin(' + func + ')';
+      });
+      
+      console.log("Returning curr value: ", curr_val);
       return curr_val;
     }
 
@@ -165,6 +186,10 @@ document.addEventListener("DOMContentLoaded", function () {
         res *= i;
       }
       return res;
+    }
+
+    function convertToRadians(degrees) {
+      return degrees * (Math.PI / 180);
     }
 
     const convertedValue = convertValues(curr_val);
@@ -178,8 +203,15 @@ document.addEventListener("DOMContentLoaded", function () {
       display.value = curr_val;
       return;
     }
-    curr_val = result.toString();
-    display.value = curr_val;
+    if (curr_val.includes("rad")) {
+      const value = parseFloat(curr_val);
+      const result = convertToRadians(value);
+      curr_val = result.toString();
+      display.value = curr_val;
+    } else {
+      curr_val = result.toString();
+      display.value = curr_val;
+    }
   }
 
 
@@ -207,20 +239,6 @@ document.addEventListener("DOMContentLoaded", function () {
           break;
         case "Deg":
           console.log("Deg");
-          break;
-        case "sin":
-          // Get the angle to calculate the sin of
-          const angle = parseFloat(curr_val);
-
-          // Convert the angle from degrees to radians
-          const radians = angle * (Math.PI / 180);
-
-          // Calculate the sin of the angle in radians
-          const result = Math.sin(radians);
-
-          // Set the current value to the result
-          curr_val = result.toString();
-          display.value = curr_val;
           break;
         case "=":
           evaluateResult();
