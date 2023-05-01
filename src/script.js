@@ -125,63 +125,69 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function evaluateResult() {
-    console.log('currentValue:', curr_val)
+    console.log('currentValue:', curr_val);
 
-
+    // function to convert various mathematical expressions to valid JavaScript syntax
     function convertValues(curr_val) {
-      curr_val = curr_val.replace(/π/g, '*Math.PI');
-      curr_val = curr_val.replace(/e/gi, '*Math.E');
-      curr_val = curr_val.replace(/\u221A([\d\.]+)/gi, 'Math.sqrt($1)');
-      curr_val = curr_val.replace(/\^/g, "**");
-      curr_val = curr_val.replace(/(\d)x\^2/g, '$1*Math.pow(x,2)');
-    
+      curr_val = curr_val.replace(/π/g, 'Math.PI'); // replace π with Math.PI
+      curr_val = curr_val.replace(/e/gi, 'Math.E'); // replace e with Math.E
+      curr_val = curr_val.replace(/\u221A([\d\.]+)/gi, 'Math.sqrt($1)'); // replace square root symbol with Math.sqrt function
+      curr_val = curr_val.replace(/\^/g, "**"); // replace ^ with **
+      curr_val = curr_val.replace(/(\d)x\^2/g, '$1*Math.pow(x,2)'); // replace x^2 with Math.pow(x,2)
+
+      // Add case for x^y operation
+      curr_val = curr_val.replace(/(\d+)x\^y/g, '$1*Math.pow(x,'); // replace x^y with Math.pow(x, y)
+
       // Convert degrees to radians
       if (degBtn.classList.contains('active')) {
         curr_val = curr_val.replace(/asin/gi, 'Math.asin');
         curr_val = curr_val.replace(/acos/gi, 'Math.acos');
         curr_val = curr_val.replace(/atan/gi, 'Math.atan');
         curr_val = curr_val.replace(/sin\(([^)]+)\)/gi, 'Math.sin($1/180*Math.PI)');
+        console.log("value of current-value:   ", curr_val);
         curr_val = curr_val.replace(/cos\(([^)]+)\)/gi, 'Math.cos($1/180*Math.PI)');
         curr_val = curr_val.replace(/tan\(([^)]+)\)/gi, 'Math.tan($1/180*Math.PI)');
       } else {
         curr_val = curr_val.replace(/asin/gi, 'Math.asin');
+        console.log("value of current-value:   ", curr_val);
         curr_val = curr_val.replace(/acos/gi, 'Math.acos');
         curr_val = curr_val.replace(/atan/gi, 'Math.atan');
         curr_val = curr_val.replace(/sin/gi, 'Math.sin');
         curr_val = curr_val.replace(/cos/gi, 'Math.cos');
         curr_val = curr_val.replace(/tan/gi, 'Math.tan');
       }
-      
-      curr_val = curr_val.replace(/log/gi, 'Math.log10');
-      curr_val = curr_val.replace(/ln/gi, 'Math.log');
-      curr_val = curr_val.replace(/(\d+)d/gi, '($1*Math.PI/180)');
+
+      curr_val = curr_val.replace(/log/gi, 'Math.log10'); // replace log with Math.log10
+      curr_val = curr_val.replace(/ln/gi, 'Math.log'); // replace ln with Math.log
+      curr_val = curr_val.replace(/(\d+)d/gi, '($1*Math.PI/180)'); // replace degrees with radians
       curr_val = curr_val.replace(/(\d+\.\d+)?π(\d+\.\d+)?/gi, function (match, p1, p2) {
         const num1 = p1 ? parseFloat(p1) : 1;
         const num2 = p2 ? parseFloat(p2) : 1;
         return num1 * Math.PI * num2;
-      });
+      }); // replace π with the corresponding value
       curr_val = curr_val.replace(/(\d+\.\d+)?√(\d+\.\d+)?/gi, function (match, p1, p2) {
         const num = p1 || p2;
         return 'Math.sqrt(' + num + ')';
-      });
-      curr_val = curr_val.replace(/\%/g, '/100');
-      curr_val = curr_val.replace(/(\d+)\s?\/\s?(\d+)/g, '($1/$2)');
-      curr_val = curr_val.replace(/(\d+)(\()/g, '$1*$2');
-      curr_val = curr_val.replace(/(\))(\d+)/g, '$1*$2');
-      curr_val = curr_val.replace(/\u00D7/g, '*');
-      curr_val = curr_val.replace(/\u00F7/g, '/');
-      curr_val = curr_val.replace(/(\d+)!/g, 'factorial($1)');
-    
+      }); // replace √ with Math.sqrt
+      curr_val = curr_val.replace(/\%/g, '/100'); // replace % with /100
+      curr_val = curr_val.replace(/(\d+)\s?\/\s?(\d+)/g, '($1/$2)'); // add parentheses around division
+      curr_val = curr_val.replace(/(\d+)(\()/g, '$1*$2'); // add multiplication sign before opening parenthesis
+      curr_val = curr_val.replace(/(\))(\d+)/g, '$1*$2'); // add multiplication sign after closing parenthesis
+      curr_val = curr_val.replace(/\u00D7/g, '*'); // replace × with *
+      curr_val = curr_val.replace(/\u00F7/g, '/'); // replace ÷ with /
+      curr_val = curr_val.replace(/(\d+)!/g, 'factorial($1)'); // replace factorial symbol with the corresponding function
+
       // Replace inverse trigonometric function symbols with valid syntax
       curr_val = curr_val.replace(/([a-z]+)⁻¹\(([^)]+)\)/gi, function (match, p1, p2) {
         const func = 'Math.' + p1 + '(' + p2 + ')';
-        return 'Math.PI/2 - Math.asin(' + func + ')';
+        return 'PI/2 - Math.asin(' + func + ')';
       });
-      
+
       console.log("Returning curr value: ", curr_val);
       return curr_val;
     }
 
+    // function to calculate the factorial of a number
     function factorial(num) {
       let res = 1;
       for (let i = 2; i <= num; i++) {
@@ -190,24 +196,27 @@ document.addEventListener("DOMContentLoaded", function () {
       return res;
     }
 
+    // function to convert degrees to radians
     function convertToRadians(degrees) {
       return degrees * (Math.PI / 180);
     }
 
     const convertedValue = convertValues(curr_val);
     console.log('convertedValue:', convertedValue);
+
     let result;
     try {
-      result = eval(convertedValue);
+      result = eval(convertedValue); // evaluate the expression using eval function
     } catch (error) {
       console.log('Error:', error);
       curr_val = 'Error';
       display.value = curr_val;
       return;
     }
+
     if (curr_val.includes("rad")) {
       const value = parseFloat(curr_val);
-      const result = convertToRadians(value);
+      const result = convertToRadians(value); // convert degrees to radians
       curr_val = result.toString();
       display.value = curr_val;
     } else {
