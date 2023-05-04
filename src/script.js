@@ -177,8 +177,8 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("logg-4:", curr_val);
       curr_val = curr_val.replace(/(\d+)\s?\/\s?(\d+)/g, '($1/$2)'); // add parentheses around division
       console.log("logg-5:", curr_val);
-      curr_val = curr_val.replace(/(\d+)(\()/g, '$1*$2'); // add multiplication sign before opening parenthesis
-      console.log("logg-6:", curr_val);
+      // curr_val = curr_val.replace(/(\d+)(\()/g, '$1*$2'); // add multiplication sign before opening parenthesis
+      // console.log("logg-6:", curr_val);
       curr_val = curr_val.replace(/(\))(\d+)/g, '$1*$2'); // add multiplication sign after closing parenthesis
       console.log("logg-7:", curr_val);
       curr_val = curr_val.replace(/\u00D7/g, '*'); // replace × with *
@@ -188,11 +188,21 @@ document.addEventListener("DOMContentLoaded", function () {
       curr_val = curr_val.replace(/(\d+)!/g, 'factorial($1)'); // replace factorial symbol with the corresponding function
       console.log("logg-10:", curr_val);
 
+      // for yth root of x
+      curr_val = curr_val.replace(/([0-9.]+)√([0-9.]+)/gi, function (match, p1, p2) {
+        const x = parseFloat(p2);
+        const y = parseFloat(p1);
+        const result = Math.pow(x, 1/y);
+        return result.toFixed(2); // Return result rounded to 2 decimal places
+      });
       
       // Replace inverse trigonometric function symbols with valid syntax
       curr_val = curr_val.replace(/([a-z]+)⁻¹\(([^)]+)\)/gi, function (match, p1, p2) {
+        console.log("logg-11:", curr_val);
         const func = 'Math.' + p1 + '(' + p2 + ')';
+        console.log("log-12", curr_val);
         return 'PI/2 - Math.asin(' + func + ')';
+        console.log("returning trig:", curr_val);
       });
 
       console.log("Returning value:", curr_val);
