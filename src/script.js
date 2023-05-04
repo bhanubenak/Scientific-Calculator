@@ -157,8 +157,8 @@ document.addEventListener("DOMContentLoaded", function () {
         curr_val = curr_val.replace(/tan/gi, 'Math.tan');
       }
 
-      curr_val = curr_val.replace(/\b(log)\(/gi, 'Math.log10('); // replace log followed by a parenthesis with Math.log10
-      // curr_val = curr_val.replace(/\b(log)\(/gi, 'Math.log10('); // replace log followed by a parenthesis with Math.log10
+      curr_val = curr_val.replace(/log/gi, 'Math.log10');
+      console.log("logging the value:", curr_val);
       curr_val = curr_val.replace(/ln/gi, 'Math.log'); // replace ln with Math.log
       curr_val = curr_val.replace(/(\d+)d/gi, '($1*Math.PI/180)'); // replace degrees with radians
       curr_val = curr_val.replace(/(\d+\.\d+)?π(\d+\.\d+)?/gi, function (match, p1, p2) {
@@ -166,25 +166,36 @@ document.addEventListener("DOMContentLoaded", function () {
         const num2 = p2 ? parseFloat(p2) : 1;
         return num1 * Math.PI * num2;
       });
+      console.log("logg-2:", curr_val);
       curr_val = curr_val.replace(/(\d+\.\d+)?√(\d+\.\d+)?/gi, function (match, p1, p2) {
         const num = p1 || p2;
+        console.log("logg-2:", curr_val);
         return 'Math.sqrt(' + num + ')';
       });
+      console.log("logg-3:", curr_val);
       curr_val = curr_val.replace(/\%/g, '/100'); // replace % with /100
+      console.log("logg-4:", curr_val);
       curr_val = curr_val.replace(/(\d+)\s?\/\s?(\d+)/g, '($1/$2)'); // add parentheses around division
+      console.log("logg-5:", curr_val);
       curr_val = curr_val.replace(/(\d+)(\()/g, '$1*$2'); // add multiplication sign before opening parenthesis
+      console.log("logg-6:", curr_val);
       curr_val = curr_val.replace(/(\))(\d+)/g, '$1*$2'); // add multiplication sign after closing parenthesis
+      console.log("logg-7:", curr_val);
       curr_val = curr_val.replace(/\u00D7/g, '*'); // replace × with *
+      console.log("logg-8:", curr_val);
       curr_val = curr_val.replace(/\u00F7/g, '/'); // replace ÷ with /
+      console.log("logg-9:", curr_val);
       curr_val = curr_val.replace(/(\d+)!/g, 'factorial($1)'); // replace factorial symbol with the corresponding function
+      console.log("logg-10:", curr_val);
 
+      
       // Replace inverse trigonometric function symbols with valid syntax
       curr_val = curr_val.replace(/([a-z]+)⁻¹\(([^)]+)\)/gi, function (match, p1, p2) {
         const func = 'Math.' + p1 + '(' + p2 + ')';
         return 'PI/2 - Math.asin(' + func + ')';
       });
 
-      console.log("Returning curr value: ", curr_val);
+      console.log("Returning value:", curr_val);
       return curr_val;
     }
 
