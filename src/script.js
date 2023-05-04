@@ -157,18 +157,19 @@ document.addEventListener("DOMContentLoaded", function () {
         curr_val = curr_val.replace(/tan/gi, 'Math.tan');
       }
 
-      curr_val = curr_val.replace(/log/gi, 'Math.log10'); // replace log with Math.log10
+      curr_val = curr_val.replace(/\b(log)\(/gi, 'Math.log10('); // replace log followed by a parenthesis with Math.log10
+      // curr_val = curr_val.replace(/\b(log)\(/gi, 'Math.log10('); // replace log followed by a parenthesis with Math.log10
       curr_val = curr_val.replace(/ln/gi, 'Math.log'); // replace ln with Math.log
       curr_val = curr_val.replace(/(\d+)d/gi, '($1*Math.PI/180)'); // replace degrees with radians
       curr_val = curr_val.replace(/(\d+\.\d+)?π(\d+\.\d+)?/gi, function (match, p1, p2) {
         const num1 = p1 ? parseFloat(p1) : 1;
         const num2 = p2 ? parseFloat(p2) : 1;
         return num1 * Math.PI * num2;
-      }); // replace π with the corresponding value
+      });
       curr_val = curr_val.replace(/(\d+\.\d+)?√(\d+\.\d+)?/gi, function (match, p1, p2) {
         const num = p1 || p2;
         return 'Math.sqrt(' + num + ')';
-      }); // replace √ with Math.sqrt
+      });
       curr_val = curr_val.replace(/\%/g, '/100'); // replace % with /100
       curr_val = curr_val.replace(/(\d+)\s?\/\s?(\d+)/g, '($1/$2)'); // add parentheses around division
       curr_val = curr_val.replace(/(\d+)(\()/g, '$1*$2'); // add multiplication sign before opening parenthesis
