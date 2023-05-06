@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   const display = document.getElementById('calc-display');
+  console.log("display: ", display);
   const buttons = document.getElementsByClassName('btn');
+  // console.log("buttons are: ", buttons);
 
 
   // shift-layout-start
@@ -169,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("logg-2:", curr_val);
       curr_val = curr_val.replace(/(\d+\.\d+)?√(\d+\.\d+)?/gi, function (match, p1, p2) {
         const num = p1 || p2;
-        console.log("logg-2:", curr_val);
+        // console.log("logg-2:", curr_val);
         return 'Math.sqrt(' + num + ')';
       });
       console.log("logg-3:", curr_val);
@@ -189,13 +191,9 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("logg-10:", curr_val);
 
       // for yth root of x
-      curr_val = curr_val.replace(/([0-9.]+)√([0-9.]+)/gi, function (match, p1, p2) {
-        const x = parseFloat(p2);
-        const y = parseFloat(p1);
-        const result = Math.pow(x, 1/y);
-        return result.toFixed(2); // Return result rounded to 2 decimal places
-      });
       
+
+
       // Replace inverse trigonometric function symbols with valid syntax
       curr_val = curr_val.replace(/([a-z]+)⁻¹\(([^)]+)\)/gi, function (match, p1, p2) {
         console.log("logg-11:", curr_val);
@@ -272,6 +270,10 @@ document.addEventListener("DOMContentLoaded", function () {
           break;
         case "Deg":
           console.log("Deg");
+          break;
+        case "y√x":
+          // code to enter.
+          calculateRoots(curr_val);
           break;
         case "=":
           evaluateResult();
