@@ -127,31 +127,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function evaluateResult() {
-    curr_val = curr_val.replace(/(\d+)[ ]*y[√]x(\d+)/g, 'calculateRoots($1, $2)');
-    console.log('currentValue:', curr_val);
 
+    curr_val = curr_val.replace(/(\d+)\s*y[√]x(\d+)/g, function (match, p1, p2) {
+      return calculateRoots(p1, p2);
+    });
     function calculateRoots(x, y) {
-      return Math.pow(x, 1 / y);
+      return Math.pow(y, 1 / x);
     }
-
-
-
-    // function calculateRoots(curr_val) {
-    //   // Get the last two numbers from the expression
-    //   const numbers = curr_val;
-    //   console.log("log numbers:", numbers);
-    //   if (numbers) {
-    //     const num2 = numbers[2];  // This is y, the root
-    //     const num1 = numbers[1];  // This is x, the number
-
-    //     // Calculate the yth root of x
-    //     const result = Math.pow(num1, 1 / num2);
-
-    //     // Replace the original expression with the evaluated result
-    //     curr_val = curr_val.replace(num1 + 'y√' + num2, result);
-    //     display.value = curr_val;
-    //   }
-    // }
 
     // function to convert various mathematical expressions to valid JavaScript syntax
     function convertValues(curr_val) {
@@ -214,13 +196,6 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("logg-9:", curr_val);
       curr_val = curr_val.replace(/(\d+)!/g, 'factorial($1)'); // replace factorial symbol with the corresponding function
       console.log("logg-10:", curr_val);
-
-      // for yth root of x
-      document.querySelector('#y-root-x').addEventListener('click', function () {
-        console.log("query ing log:", curr_val);
-        calculateRoots(curr_val);
-      });
-
 
 
       // Replace inverse trigonometric function symbols with valid syntax
