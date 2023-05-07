@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const display = document.getElementById('calc-display');
-  console.log("display: ", display);
+  // console.log("display: ", display);
   const buttons = document.getElementsByClassName('btn');
   // console.log("buttons are: ", buttons);
 
@@ -127,7 +127,31 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function evaluateResult() {
+    curr_val = curr_val.replace(/(\d+)[ ]*y[√]x(\d+)/g, 'calculateRoots($1, $2)');
     console.log('currentValue:', curr_val);
+
+    function calculateRoots(x, y) {
+      return Math.pow(x, 1 / y);
+    }
+
+
+
+    // function calculateRoots(curr_val) {
+    //   // Get the last two numbers from the expression
+    //   const numbers = curr_val;
+    //   console.log("log numbers:", numbers);
+    //   if (numbers) {
+    //     const num2 = numbers[2];  // This is y, the root
+    //     const num1 = numbers[1];  // This is x, the number
+
+    //     // Calculate the yth root of x
+    //     const result = Math.pow(num1, 1 / num2);
+
+    //     // Replace the original expression with the evaluated result
+    //     curr_val = curr_val.replace(num1 + 'y√' + num2, result);
+    //     display.value = curr_val;
+    //   }
+    // }
 
     // function to convert various mathematical expressions to valid JavaScript syntax
     function convertValues(curr_val) {
@@ -175,6 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return 'Math.sqrt(' + num + ')';
       });
       console.log("logg-3:", curr_val);
+      console.log("log numbers:", curr_val);
       curr_val = curr_val.replace(/\%/g, '/100'); // replace % with /100
       console.log("logg-4:", curr_val);
       curr_val = curr_val.replace(/(\d+)\s?\/\s?(\d+)/g, '($1/$2)'); // add parentheses around division
@@ -191,7 +216,11 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("logg-10:", curr_val);
 
       // for yth root of x
-      
+      document.querySelector('#y-root-x').addEventListener('click', function () {
+        console.log("query ing log:", curr_val);
+        calculateRoots(curr_val);
+      });
+
 
 
       // Replace inverse trigonometric function symbols with valid syntax
@@ -215,6 +244,10 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       return res;
     }
+
+
+
+
 
     // function to convert degrees to radians
     function convertToRadians(degrees) {
@@ -271,10 +304,12 @@ document.addEventListener("DOMContentLoaded", function () {
         case "Deg":
           console.log("Deg");
           break;
-        case "y√x":
-          // code to enter.
-          calculateRoots(curr_val);
-          break;
+        // case "y√x":
+        //   // Add event listener for y√x button
+        //   document.querySelector('#y-root-x').addEventListener('click', function () {
+        //     calculateRoots(curr_val);
+        //   });
+        //   break;
         case "=":
           evaluateResult();
           break;
